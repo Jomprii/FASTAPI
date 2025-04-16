@@ -1,14 +1,21 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
+from dotenv import load_dotenv
 
-# Using environment variable for database URL
-database_url = os.environ.get("postgresql://fastapidb_216p_user:dr7GIIQskhleQ7qznHxm6WvnOrcOy2J7@dpg-cvvppkuuk2gs73difh50-a/fastapidb_216p")
+# Load environment variables from .env file (if exists)
+load_dotenv()
 
-# Creating the engine to interact with PostgreSQL
+# Get the database URL from the environment variable
+database_url = os.environ.get("DATABASE_URL")
+
+if not database_url:
+    raise ValueError("No DATABASE_URL found in environment variables.")
+
+# Create the engine to interact with PostgreSQL
 engine = create_engine(database_url, echo=True)
 
-# Creating a session local class to interact with the database
+# Create a session local class to interact with the database
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Base class to create tables
