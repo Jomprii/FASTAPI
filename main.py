@@ -30,13 +30,13 @@ class BookOut(BookCreate):
         orm_mode = True
 
 # Endpoint to fetch all books
-@app.get("/books", response_model=List[BookOut])
+@app.get("/Junprii", response_model=List[BookOut])
 def get_books(db: Session = Depends(get_db)):
     books = db.query(Book).all()
     return books
 
 # Endpoint to add a new book
-@app.post("/books", response_model=BookOut)
+@app.post("/Junprii", response_model=BookOut)
 def add_book(book: BookCreate, db: Session = Depends(get_db)):
     db_book = Book(title=book.title, author=book.author)
     db.add(db_book)
